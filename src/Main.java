@@ -1,14 +1,20 @@
+import java.util.HashMap;
+
 public class Main {
 
     public static void main(String[] args) {
-        IdGen idGen = new IdGen(0,0);
+        HashMap<String, Long> config = new HashMap<>();
+        config.put("engineRoom", 1L);
+        config.put("frame", 3L);
+        config.put("worker", 410L);
+        DisIdWorker idWorker = new DisIdWorker(config);
 
         for(int i=0;i<50;i++) {
             new Thread(new Runnable() {
                 @Override
                 public void run() {
                     for(int j=0;j<200;j++) {
-                        long id = idGen.getNextId();
+                        long id = idWorker.getNextId();
                         System.out.println(Thread.currentThread().getName() + "  " + id);
                     }
                 }
